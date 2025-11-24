@@ -500,7 +500,7 @@ def index(request, filterservice="", filterportid=""):
 				else:
 					lastportid = p['@portid']
 
-				if 'service' in p:
+				if 'service' in p and p['service']:
 					if filterservice != "" and p['service']['@name'] == filterservice:
 						striggered = True
 
@@ -509,7 +509,7 @@ def index(request, filterservice="", filterportid=""):
 
 				pp[p['@portid']] = p['@portid']
 
-				if 'service' in p:
+				if 'service' in p and p['service']:
 					ss[p['service']['@name']] = p['service']['@name']
 
 					if '@extrainfo' in p['service']:
