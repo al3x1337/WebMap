@@ -51,7 +51,12 @@ COPY docker/settings.py docker/urls.py /opt/nmapdashboard/nmapdashboard
 COPY docker/tzdata.sh /root/tzdata.sh
 COPY docker/startup.sh /startup.sh
 
+RUN sed -i 's/\r$//' /startup.sh && \
+    sed -i 's/\r$//' /root/tzdata.sh && \
+    chmod +x /startup.sh /root/tzdata.sh
+
 RUN mkdir /opt/xml /opt/notes && \
+    sed -i 's/\r$//' /opt/nmapdashboard/nmapreport/token.py && \
     cd /opt/nmapdashboard && \
     python3 manage.py migrate && \
     ln -s /opt/nmapdashboard/nmapreport/token.py /root/token && \

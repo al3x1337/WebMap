@@ -1,0 +1,15 @@
+version: '3'
+services:
+  webmap:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: webmap
+    hostname: webmap
+    ports:
+      - "8080:8000"
+    volumes:
+      - ./_container/xml:/opt/xml
+      - ./_container/notes:/opt/notes
+      - ./_container/schedule:/opt/schedule
+    restart: unless-stopped

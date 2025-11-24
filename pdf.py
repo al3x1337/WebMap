@@ -91,8 +91,8 @@ def reportPDFView(request):
 			hostdetails_html += '	<h2 id="addr'+addressmd5+'">'+html.escape(saddress)+' '+labelout+'</h2> '
 
 			hostdetails_html += '	<span class="subtitle">Status: '+html.escape(i['status']['@state'])+', '
-			hostdetails_html += 'Reason: '+html.escape(i['status']['@reason'])+', '
-			hostdetails_html += 'TTL: '+html.escape(i['status']['@reason_ttl'])+'</span>'
+			hostdetails_html += 'Reason: '+html.escape(i['status'].get('@reason', ''))+', '
+			hostdetails_html += 'TTL: '+html.escape(i['status'].get('@reason_ttl', ''))+'</span>'
 
 			if 'hostsup' in counters:
 				counters['hostsup'] = (counters['hostsup'] + 1)
