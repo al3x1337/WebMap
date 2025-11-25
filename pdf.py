@@ -169,33 +169,6 @@ def reportPDFView(request):
 				else:
 					servicename = ''
 				
-				hostdetails_html_tr += '<tr>'+\
-				'	<td><span class="'+hdhtml_protocolor+'-text">'+p['@protocol']+'</span> / <span class=""><b>'+p['@portid']+'</b></span><br><span class="small">'+servicename+'</span></td>'+\
-				'	<td>'+hdhtml_stateico+' '+p['state']['@state']+'</td>'+\
-				'	<td>'+hdhtml_product+' / '+hdhtml_version+'</td>'+\
-				'</tr>'
-
-				if 'script' in p:
-					lastscript = ''
-					for ii in p['script']:
-						if type(ii) is dict:
-							script = ii
-						else:
-							script = p['script']
-
-						if lastscript != script['@id']:
-							lastscript = script['@id']
-						else:
-							continue
-
-						if script['@output'].replace('\n','') != '' and script['@id'] not in filterscriptid:
-							portdetails_html_tr += '<div class="extratitle"><b class="red-text">'+html.escape(script['@id'])+'</b> - Address: <b>'+html.escape(saddress)+'</b> - Port: <b>'+p['@portid']+'</b></div>'+\
-							'<div class="extrainfo">'+html.escape(script['@output']).replace('\n','<br>')+'</div>'
-
-				portsfound = True
-
-		notesout,notesb64 = '',''
-		if scanmd5 in noteshost:
 			if addressmd5 in noteshost[scanmd5]:
 				notesb64 = noteshost[scanmd5][addressmd5]
 				notesout = '<div style="page-break-before: always;">'+\
@@ -252,7 +225,6 @@ def reportPDFView(request):
 			'	<table><thead><tr><th>Protocol / Port</th><th>Port State</th><th>Product / Version</th></tr></thead><tbody>'+\
 			hostdetails_html_tr+\
 			'</tbody></table></div>'+\
-			'<div style="page-break-before: always;"><h3>NSE Scripts for '+saddress+':</h3>'+portdetails_html_tr+'</div>'+\
 			notesout+\
 			cveout_html
 
