@@ -127,14 +127,14 @@ def reportPDFView(request):
 					counters['pf'] = (counters['pf'] + 1)
 					hostcounters['pf'] = (hostcounters['pf'] + 1)
 
-				if 'service' in p:
+				if 'service' in p and p['service'] is not None:
 					if '@ostype' in p['service']:
 						if p['service']['@ostype'] in counters['ostype']:
 							counters['ostype'][p['service']['@ostype']] = (counters['ostype'][p['service']['@ostype']] +1)
 						else:
 							counters['ostype'][p['service']['@ostype']] = 1;
 
-					if p['service']['@name'] in counters['ss']:
+					if '@name' in p['service'] and p['service']['@name'] in counters['ss']:
 						counters['ss'][p['service']['@name']] = (counters['ss'][p['service']['@name']] + 1)
 					else:
 						counters['ss'][p['service']['@name']] = 1
@@ -145,14 +145,14 @@ def reportPDFView(request):
 					counters['pi'][p['@portid']] = 1
 
 				hdhtml_product = ''
-				if 'service' in p:
+				if 'service' in p and p['service'] is not None:
 					if '@product' in p['service']:
 						hdhtml_product = html.escape(p['service']['@product'])
 					else:
 						hdhtml_product = '<i class="grey-text">No Product</i>'
 
 				hdhtml_version = ''
-				if 'service' in p:
+				if 'service' in p and p['service'] is not None:
 					if '@version' in p['service']:
 						hdhtml_version = html.escape(p['service']['@version'])
 					else:
@@ -164,7 +164,7 @@ def reportPDFView(request):
 				elif p['@protocol'] == 'udp':
 					hdhtml_protocolor = 'red'
 
-				if 'service' in p:
+				if 'service' in p and p['service'] is not None and '@name' in p['service']:
 					servicename = p['service']['@name']
 				else:
 					servicename = ''
