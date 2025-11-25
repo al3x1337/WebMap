@@ -169,6 +169,16 @@ def reportPDFView(request):
 				else:
 					servicename = ''
 				
+				hostdetails_html_tr += '<tr>'+\
+				'	<td><span class="'+hdhtml_protocolor+'-text">'+p['@protocol']+'</span> / <span class=""><b>'+p['@portid']+'</b></span><br><span class="small">'+servicename+'</span></td>'+\
+				'	<td>'+hdhtml_stateico+' '+p['state']['@state']+'</td>'+\
+				'	<td>'+hdhtml_product+' / '+hdhtml_version+'</td>'+\
+				'</tr>'
+
+				portsfound = True
+
+		notesout,notesb64 = '',''
+		if scanmd5 in noteshost:
 			if addressmd5 in noteshost[scanmd5]:
 				notesb64 = noteshost[scanmd5][addressmd5]
 				notesout = '<div style="page-break-before: always;">'+\
